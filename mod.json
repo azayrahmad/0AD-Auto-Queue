@@ -1,0 +1,7 @@
+{
+	"name": "auto-queue",
+	"version": "0.0.1",
+	"label": "Auto Queue",
+	"description": "Continue train units if resource and pop available.",
+	"dependencies": ["0ad=0.0.24"]
+}
