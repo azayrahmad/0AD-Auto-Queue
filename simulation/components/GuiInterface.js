@@ -326,12 +326,19 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 
 	let cmpProductionQueue = Engine.QueryInterface(ent, IID_ProductionQueue);
 	if (cmpProductionQueue)
+	{
 		ret.production = {
 			"entities": cmpProductionQueue.GetEntitiesList(),
 			"technologies": cmpProductionQueue.GetTechnologiesList(),
 			"techCostMultiplier": cmpProductionQueue.GetTechCostMultiplier(),
 			"queue": cmpProductionQueue.GetQueue()
 		};
+		if (ret.production.entities.length)
+		{	
+			ret.isproducingunits = ret.production.entities.length > 0;
+			ret.autoqueue = cmpProductionQueue.GetAutoQueue();
+		}
+	}
 
 	let cmpTrader = Engine.QueryInterface(ent, IID_Trader);
 	if (cmpTrader)

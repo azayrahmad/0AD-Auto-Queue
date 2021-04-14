@@ -21,7 +21,7 @@ ProductionQueue.prototype.Schema =
 	"</optional>" +
 	"<optional>" +
 		"<element name='AutoQueue' a:help=''>" +
-			"<ref name='boolean'/>" +
+			"<data type='boolean'/>" +
 		"</element>" +
 	"</optional>" +
 	"<optional>" +
@@ -85,9 +85,26 @@ ProductionQueue.prototype.GetEntitiesList = function()
 	return Array.from(this.entitiesMap.values());
 };
 
+ProductionQueue.prototype.GetAutoQueue = function()
+{
+	return this.autoqueue;
+};
+
 ProductionQueue.prototype.ToggleAutoQueue = function()
 {
 	this.autoqueue = !this.autoqueue;
+	return this.autoqueue;
+};
+
+ProductionQueue.prototype.TurnAutoQueueOn = function()
+{
+	this.autoqueue = true;
+	return this.autoqueue;
+};
+
+ProductionQueue.prototype.TurnAutoQueueOff = function()
+{
+	this.autoqueue = false;
 	return this.autoqueue;
 };
 
@@ -890,7 +907,7 @@ ProductionQueue.prototype.ProgressTimeout = function(data)
 				// All entities spawned, this batch finished.
 				cmpPlayer.UnReservePopulationSlots(item.population * numSpawned);
 				time -= item.timeRemaining;
-				autoqueue && this.AddBatch(item.unitTemplate, item.type, item.count, item.metadata);
+				this.autoqueue && this.AddBatch(item.unitTemplate, "unit", item.count, item.metadata);
 				this.queue.shift();
 				// Unset flag that training is blocked.
 				cmpPlayer.UnBlockTraining();

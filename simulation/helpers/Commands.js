@@ -568,6 +568,26 @@ var g_Commands = {
 		}
 	},
 
+	"autoqueue-on": function(player, cmd, data)
+	{
+		for (let ent of data.entities)
+		{
+			var cmpProductionQueue = Engine.QueryInterface(ent, IID_ProductionQueue);
+			if (cmpProductionQueue)
+				cmpProductionQueue.TurnAutoQueueOn();
+		}
+	},
+
+	"autoqueue-off": function(player, cmd, data)
+	{
+		for (let ent of data.entities)
+		{
+			var cmpProductionQueue = Engine.QueryInterface(ent, IID_ProductionQueue);
+			if (cmpProductionQueue)
+				cmpProductionQueue.TurnAutoQueueOff();
+		}
+	},
+
 	"formation": function(player, cmd, data)
 	{
 		GetFormationUnitAIs(data.entities, player, cmd, data.formation, true).forEach(cmpUnitAI => {

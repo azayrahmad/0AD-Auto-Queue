@@ -498,6 +498,28 @@ function removeGuard()
 	});
 }
 
+function turnAutoQueueOn()
+{
+	Engine.PostNetworkCommand({
+		"type": "autoqueue-on",
+		"entities": g_Selection.toList().filter(ent => {
+			let state = GetEntityState(ent);
+			return state && !!state.isproducingunits;
+		})
+	});
+}
+
+function turnAutoQueueOff()
+{
+	Engine.PostNetworkCommand({
+		"type": "autoqueue-off",
+		"entities": g_Selection.toList().filter(ent => {
+			let state = GetEntityState(ent);
+			return state && !!state.isproducingunits;
+		})
+	});
+}
+
 function raiseAlert()
 {
 	Engine.PostNetworkCommand({
